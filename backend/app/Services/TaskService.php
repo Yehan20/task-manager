@@ -14,10 +14,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class TaskService
 {
 
-    /**
-     * Display a listing of the resource based on the user no user passed returns all posts
-     * @return \Illuminate\Database\Eloquent\Collection;
-     */
+   
     public function allPaginated(null|User $user, int $limit = 10): LengthAwarePaginator
     {
 
