@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\TaskAlreadyCompletedExpection;
 use App\Http\Middleware\isGuestMiddleware;
 use App\Http\Middleware\LogRequestDetailsMiddleware;
 use Illuminate\Auth\AuthenticationException;
@@ -8,8 +9,10 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -48,16 +51,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (NotFoundHttpException $exception, Request $request) {
 
             if ($request->is('api/*')) {
-
                 return response()->json([
-
+                    'status' => 'error',
                     'message' => 'Record not found.'
-
                 ], 404);
             }
         });
 
-       // Request Limit Expection handler
+        // Request Limit Expection handler
         $exceptions->render(function (ThrottleRequestsException $exception) {
             return response()->json([
                 'status' => 'error',
@@ -65,12 +66,32 @@ return Application::configure(basePath: dirname(__DIR__))
             ], 429);
         });
 
+        $exceptions->render(function (TaskAlreadyCompletedExpection $exception, Request $request) {
 
-        // Defualt Exceptions
-        $exceptions->render(function (\Exception $exception) {
             return response()->json([
                 'status' => 'error',
                 'message' => $exception->getMessage()
+            ], 409);
+        });
+
+        $exceptions->render(function (AccessDeniedHttpException $exception, Request $request) {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage()
+            ], 403);
+        });
+
+
+        // Global Exception handler for the unhandld exceptions
+        $exceptions->render(function (Request $request, \Exception $exception) {
+
+
+            Log::error('URL:'.$request->url().'Exception : ' . get_class($exception));
+
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage(),
             ], 500);
         });
     })->create();
