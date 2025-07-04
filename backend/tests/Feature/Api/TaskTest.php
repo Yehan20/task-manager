@@ -187,8 +187,8 @@ class TaskTest extends TestCase
     {
 
         return [
-            'title' => 'my title',
-            'description' => 'my description',
+            'title' => 'sample title',
+            'description' => 'sample description',
             'user_id' => $this->user->id,
         ];
     }
