@@ -18,6 +18,8 @@ class TaskFactory extends Factory
     {
         return [
             //
+            'title'=> fake()->sentence('8'),
+            'description'=>fake()->paragraph('1')
         ];
     }
 }
