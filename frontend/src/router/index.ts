@@ -1,30 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '@/stores/auth';
-import formatLabel, { log } from '@/utils';
+import formatLabel from '@/utils';
 import items from './items';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: items,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { top: 0, left: 0 };
-    }
-  },
 });
 
 // Before each
 router.beforeEach(async function (to, from) {
   // update title based on the route name
-  document.title = `Task Manager 1.1 | ` + formatLabel(to.name?.toString());
+  console.log('From', from);
 
-  log('run before each hook');
+  document.title = `TaskManager 1.2 | ` + formatLabel(to.name?.toString());
 
   const auth = useAuthStore();
-
-  log(auth.currentUser);
 
   // Auth required gaurd should check for user in the store if not there fetch if fails redirect back to login\
   if (to.meta.authRequired && !auth.currentUser) {
@@ -37,25 +28,16 @@ router.beforeEach(async function (to, from) {
     }
   }
 
-  // if (to.meta.guestOnly && auth.currentUser) {
-  //   return {
-  //     name: 'home'
-  //   }
-  // }
-
   return true;
 });
 
-
 // after navigation is successfull remove the loader
-router.afterEach((to, from) => {
-  // 
+router.afterEach(() => {
+  //
   const mainloader = document.querySelector('#main-loader');
   if (mainloader) {
     mainloader.remove();
   }
-
-})
-
+});
 
 export default router;

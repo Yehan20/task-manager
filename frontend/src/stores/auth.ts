@@ -2,7 +2,6 @@ import type { NewUser, UserInfo } from '@/types/type';
 import axios from '../axios/axios';
 import { defineStore } from 'pinia';
 import router from '@/router';
-import { log } from '@/utils';
 import { useTasks } from './task';
 
 export const useAuthStore = defineStore('user', {
@@ -13,14 +12,10 @@ export const useAuthStore = defineStore('user', {
   actions: {
     async loginUser(email: string, password: string) {
       try {
-        log(email, password);
-
         const response = await axios.post('login', {
           email,
           password,
         });
-
-        log(response.data);
 
         if (response.data) {
           localStorage.setItem('token', response.data.authorization.token);
@@ -40,7 +35,6 @@ export const useAuthStore = defineStore('user', {
         }
         this.currentUser = response.data.data;
       } catch (error) {
-        log(error);
         throw error;
       }
     },
@@ -55,20 +49,16 @@ export const useAuthStore = defineStore('user', {
     },
 
     async logout() {
-
       const taskStore = useTasks();
       try {
         await axios.post('logout');
         router.push({ name: 'login' });
-        this.currentUser = null
+        this.currentUser = null;
         console.log('store is running');
         taskStore.$reset();
         localStorage.removeItem('token'); // even token remaians it would be blacklisted
         console.log('store is end');
-
-
       } catch (error) {
-
         return error;
       }
     },
