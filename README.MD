@@ -41,7 +41,8 @@ Make sure you have the following installed:
 
 > 🚨 **Important for Frontend & Cypress Testing:**  
 > Cypress and some frontend dependencies require the **latest stable version of Node.js** to run correctly.  
-> Use [nvm](https://github.com/nvm-sh/nvm) or manually update to the latest version before running `npm install` or Cypress tests.
+> Use [nvm (Node Version Manager)](https://github.com/nvm-sh/nvm) or [download the latest Node.js](https://nodejs.org/en/download) manually before running `npm install` or Cypress tests.
+
 
 ### First Steps
 
@@ -148,7 +149,7 @@ git remote add origin https://github.com/<your-github-username>/<your-repo-name>
    ```
 
    The frontend will be available at `http://localhost:5173`.
-   If you change the dev url make sure to update the cors.php file in laravel as other wise it wont allow
+   If you change the development url make sure to update the cors.php file in laravel as other wise it wont allow
 
 6. In the `axios.js` file in the service folder, use the Vite base URL or your custom base URL:
 
@@ -172,52 +173,16 @@ php artisan test
 ```
 #### Frontend: Cypress
 
-To run feature tests for the Vuew front backend:
+To run feature tests for the Vue frontend:
 
->  Make sure you're in the project root before navigating to `backend`
+>  Make sure you're in the project root before navigating to `frontend`
 
 ```bash
 cd frontend
 npm run test:e2e:dev
 ```
-
-### (Optional) Running a Laravel Test Server for Cypress E2E Tests
-
-To enable Cypress to test against a Laravel API instance connected to a dedicated test database for accurate integration testing, follow these steps:
-
-1. **Create a Test Environment File**  
-   In your Laravel backend folder, create a `.env.cypress` file with your test database credentials. a sample file is there in the project
-
-2. **Run Migrations and Seeders**  
-   Execute migrations and seeders for the test database:
-   ```bash
-   php artisan migrate --env=cypress --seed
-   ```
-
-3. **Start the Laravel Test Server**  
-   Launch the Laravel development server in the test environment on port 8001:
-   ```bash
-   php artisan serve --env=cypress --host=localhost --port=8001
-   ```
-
-4. **Configure Vue Frontend**  
-   Update your Vue frontend's `.env.test` (or `.env.cypress`) file to point to the test API URL:
-   ```
-   VITE_API_BASE_URL=http://localhost:8001/api
-   ```
-
-5. **Run Vue Development Server**  
-   Start the Vue dev server in test mode:
-   ```bash
-   npm run dev -- --mode test
-   ```
-
-6. **Run Cypress Tests**  
-   Navigate to the frontend folder and run Cypress tests:
-   ```bash
-   cd frontend
-   npm run test:e2e
-   ```
+>  **Note:**  
+> If you change the test runner's origin (e.g., running the frontend on a different port), be sure to update the `allowed_origins` setting in your Laravel `config/cors.php` file:
 
 
 ## Main API Endpoints
@@ -234,7 +199,7 @@ To enable Cypress to test against a Laravel API instance connected to a dedicate
 | POST   | `/api/tasks`             | Create a new task             |
 | PUT    | `/api/tasks/{id}`        | Update a  task                |
 | DELETE | `/api/tasks/{id}`        | Delete a task                 |
-| POST   | `/api/tasks/{id}/complete` | Mark a task as complete     |
+| PATCH  | `/api/tasks/{id}/complete` | Mark a task as complete     |
 
 
 ## Hosting Information
@@ -251,7 +216,7 @@ You can learn more about deployment from the official documentation:
 - [Netlify Docs (Frontend Hosting)](https://docs.netlify.com/)
 - [Sevella Docs (PHP & Laravel Hosting)](https://docs.sevella.com/) 
 
->  **Important:** Ensure that CORS is properly configured in your Laravel backend (`config/cors.php`) to allow requests from your deployed Netlify domain repo has already cors file.
+>  **Important:** Ensure that CORS is properly configured in your Laravel backend (`config/cors.php`) to allow requests from your deployed Netlify domain. repo has already cors file.
 
 
 ## Future Improvement Ideas
