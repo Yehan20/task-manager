@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class TaskRequest extends FormRequest
 {
@@ -14,6 +15,7 @@ class TaskRequest extends FormRequest
         return  true;
     }
 
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,17 +24,19 @@ class TaskRequest extends FormRequest
     public function rules(): array
     {
 
-       $rules =  [
-            'title'=>['required','string','max:255'],
-            'description'=>['required','string'],
+        $rules =  [
+            'title' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'deadline' => ['required', 'date', 'after_or_equal:today',],
+            'priority' => ['required', 'string', 'in:high,normal,low']
         ];
-        
+
         // conditionally add new rule
-        if($this->method() === 'PUT') {
-           $rules['status']= ['required','string','in:pending,completed'];
+        if ($this->method() === 'PUT') {
+            $rules['status'] = ['required', 'string', 'in:pending,completed'];
+      
         }
 
         return $rules;
-
     }
 }
