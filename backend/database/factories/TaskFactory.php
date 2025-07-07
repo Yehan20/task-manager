@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Task>
@@ -18,6 +19,11 @@ class TaskFactory extends Factory
     {
         return [
             //
+            'title' => fake()->sentence('8'),
+            'description' => fake()->paragraph('1'),
+            'priority' => 'normal',
+            'deadline' => Carbon::today()->addDays(3),
+
         ];
     }
 }
