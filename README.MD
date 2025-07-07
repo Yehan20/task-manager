@@ -151,13 +151,21 @@ git remote add origin https://github.com/<your-github-username>/<your-repo-name>
    The frontend will be available at `http://localhost:5173`.
    If you change the development url make sure to update the cors.php file in laravel as other wise it wont allow
 
-6. In the `axios.js` file in the service folder, use the Vite base URL or your custom base URL:
+6. While it's possible to manually set the API URL directly in the code, it's **highly recommended** to use environment variables instead for flexibility and cleaner configuration.
+
+  **File:** `frontend/src/axios/axios.js`
+
+   ```js
+   const axiosInstance = axios.create({
+   baseURL: 'http://yourendpoint.com', 
+   });
+   ```
 
    ```bash
    npm run dev
    ```
 
-   The frontend will be available at `http://localhost:5173`.
+   The frontend will be available at `http://localhost:5173` by default.
 
 ### Testing
 
