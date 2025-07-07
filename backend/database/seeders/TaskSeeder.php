@@ -6,6 +6,7 @@ use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class TaskSeeder extends Seeder
 {
@@ -51,7 +52,8 @@ class TaskSeeder extends Seeder
             Task::create([
                 'title' => $task['title'],
                 'description' => $task['description'],
-                'user_id' => $user->id
+                'user_id' => $user->id,
+                'deadline'=>Carbon::now()->addDays(3),
             ]);
         }
     }
