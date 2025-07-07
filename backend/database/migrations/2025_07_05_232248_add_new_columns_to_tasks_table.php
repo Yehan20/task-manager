@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('tasks', function (Blueprint $table) {
             //
             $table->date('deadline')->after('status');
-            $table->enum('priority', ['high', 'normal','low'])->default('normal')->after('deadline');
+            $table->enum('priority', ['high', 'normal', 'low'])->default('normal')->after('deadline');
             $table->timestamp('completed_at')->nullable()->after('status');
         });
     }
