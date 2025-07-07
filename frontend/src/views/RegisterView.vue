@@ -7,7 +7,7 @@ import GuestLayout from '@/layouts/GuestLayout.vue';
 <template>
   <GuestLayout>
     <template #image-section>
-      <v-img title="Cover imge" class="h-full" cover :src="image"></v-img>
+      <v-img title="Cover imge" style="object-fit: cover" class="h-full" cover :src="image" />
     </template>
 
     <template #form-section>
