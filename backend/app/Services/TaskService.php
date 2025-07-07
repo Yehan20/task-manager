@@ -10,6 +10,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Carbon;
 
 class TaskService
 {
@@ -18,7 +19,7 @@ class TaskService
     public function allPaginated(null|User $user, int $limit = 10): LengthAwarePaginator
     {
 
-        return Task::byUser($user)->latest()->paginate($limit);
+        return Task::byUser($user)->latest()->paginate($limit)->withQueryString();
     }
 
 
@@ -67,6 +68,7 @@ class TaskService
         }
 
         $task->status = 'completed';
+        $task->completed_at = Carbon::now()->toDateTimeString();
         $task->save();
         return $task;
     }
