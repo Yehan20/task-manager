@@ -23,9 +23,9 @@ class TaskResource extends JsonResource
             'priority' => $this->priority,
             'user' => $this->whenLoaded('user'),
             'deadline' => Carbon::parse($this->deadline)->toDateString(),
-            'completed_at'=> $this->completed_at ? $this->completed_at: null,
+            'completed_at' => $this->completed_at ? $this->completed_at : null,
             'created_at' => Carbon::parse($this->created_at)->toDateString(),
-            'updated_at' => Carbon::parse($this->updated_at)->toDateString()
+            'updated_at' => Carbon::parse($this->updated_at)->toDateString(),
         ];
     }
 }

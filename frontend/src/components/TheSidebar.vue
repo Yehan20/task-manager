@@ -35,7 +35,8 @@ const items = [
         <v-icon size="40" color="deep-purple-darken-4">mdi-account</v-icon>
       </v-avatar>
 
-      <v-list-item class="text-white" :subtitle="auth.currentUser?.email" :title="auth.currentUser?.name" />
+      <v-list-item class="text-white" :subtitle="auth.currentUser?.email" 
+      :title="auth.currentUser?.name" />
     </v-card>
 
 

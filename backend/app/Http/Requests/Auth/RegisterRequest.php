@@ -26,7 +26,7 @@ class RegisterRequest extends FormRequest
             'name' => ['required', 'string', 'max:30'],
             'email' => ['required', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password_confirmation' => ['required', 'string']
+            'password_confirmation' => ['required', 'string'],
         ];
     }
 
@@ -37,7 +37,7 @@ class RegisterRequest extends FormRequest
     //             $validator->errors()->add('email', 'This is an additional error for the email field.');
     //         }
     //         if ($validator->errors()->has('name')) {
-                
+
     //             $validator->errors()->add('name', 'This is an additional error for the email field.');
     //             $validator->errors()->add('name', 'This is an additional error for the email field.');
     //         }

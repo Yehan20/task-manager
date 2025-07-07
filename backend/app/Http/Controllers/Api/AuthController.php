@@ -6,14 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-
-
     /**
      * Get a JWT and the Logged user via given credentials.
      *
@@ -26,10 +23,10 @@ class AuthController extends Controller
 
         $token = Auth::attempt($credentials);
 
-        if (!$token) {
+        if (! $token) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized',
             ], 401);
         }
 
@@ -38,11 +35,10 @@ class AuthController extends Controller
             'data' => Auth::user(),
             'authorization' => [
                 'token' => $token,
-                'type' => 'bearer'
-            ]
+                'type' => 'bearer',
+            ],
         ], 200);
     }
-
 
     /**
      * Get a JWT and the Registered via given credentials.
@@ -57,22 +53,20 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
-            'password' => Hash::make($validated['password'])
+            'password' => Hash::make($validated['password']),
         ]);
 
         $token = Auth::login($user);
-
 
         return response()->json([
             'status' => 'success',
             'data' => Auth::user(),
             'authorization' => [
                 'token' => $token,
-                'type' => 'bearer'
-            ]
+                'type' => 'bearer',
+            ],
         ], 201);
     }
-
 
     /**
      * Get the authenticated User.
@@ -82,7 +76,7 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json([
-            'data' => Auth::user()
+            'data' => Auth::user(),
         ]);
     }
 
@@ -105,7 +99,7 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->setTTL(120)->refresh(true, true));
+        return $this->respondWithToken(auth()->setTTL(360)->refresh(true, true));
     }
 
     protected function respondWithToken($token)
@@ -113,8 +107,8 @@ class AuthController extends Controller
         return response()->json([
             'authorization' => [
                 'token' => $token,
-                'type' => 'bearer'
-            ]
+                'type' => 'bearer',
+            ],
         ]);
     }
 }

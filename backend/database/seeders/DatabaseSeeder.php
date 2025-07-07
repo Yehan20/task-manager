@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create 1 user and 5 tasks 
+        // Create 1 user and 5 tasks
         $this->call([
             UserSeeder::class,
-            TaskSeeder::class
+            TaskSeeder::class,
         ]);
     }
 }

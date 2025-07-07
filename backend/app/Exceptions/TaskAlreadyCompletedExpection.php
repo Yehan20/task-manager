@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Log;
 
 class TaskAlreadyCompletedExpection extends Exception
 {
-    
     /**
      * Report or log an exception.
      *
@@ -21,14 +20,10 @@ class TaskAlreadyCompletedExpection extends Exception
     }
 
     /**
-
      * Render the exception as an HTTP response.
-
      */
-
     public function render(Request $request): Response
-
     {
-        return response(['message'=>'task is already completed','status'=>'error'],409);
+        return response(['message' => 'task is already completed', 'status' => 'error'], 409);
     }
 }

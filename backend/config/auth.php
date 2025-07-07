@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'api',
-        //env('AUTH_GUARD', ''),
+        // env('AUTH_GUARD', ''),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 

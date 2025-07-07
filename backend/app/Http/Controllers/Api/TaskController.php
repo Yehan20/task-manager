@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
@@ -14,8 +15,6 @@ use Illuminate\Support\Facades\Gate;
 
 class TaskController extends Controller
 {
-
-
     public function __construct(protected TaskService $taskService) {}
 
     /**
@@ -23,18 +22,18 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-       
+
         $user = Auth::user();
-        $limit= (int)$request->query('limit') ?? 0;
-    
-  
+        $limit = (int) $request->query('limit') ?? 0;
+
         if ($request->query('status')) {
-            
+
             return TaskResource::collection(
-             $this->taskService->filterTasksByStatusPaginated($user, $request->query('status'),$limit)
+                $this->taskService->filterTasksByStatusPaginated($user, $request->query('status'), $limit)
             );
         }
-        return TaskResource::collection($this->taskService->allPaginated($user,$limit));
+
+        return TaskResource::collection($this->taskService->allPaginated($user, $limit));
     }
 
     /**
@@ -42,10 +41,9 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-       
-        $task = $this->taskService->create(array_merge($request->validated(), 
-        ['user_id' => Auth::user()->id]));
 
+        $task = $this->taskService->create(array_merge($request->validated(),
+            ['user_id' => Auth::user()->id]));
 
         return new TaskResource($task);
     }
@@ -55,7 +53,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-    
+
         Gate::authorize('view', $task);
 
         return new TaskResource($task);
@@ -66,7 +64,7 @@ class TaskController extends Controller
      */
     public function update(TaskRequest $request, Task $task)
     {
-    
+
         Gate::authorize('update', $task);
 
         $task = $this->taskService->update($request->validated(), $task->id);
@@ -79,7 +77,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-       
+
         Gate::authorize('delete', $task);
 
         $this->taskService->delete($task->id);

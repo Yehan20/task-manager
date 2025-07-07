@@ -18,7 +18,7 @@ const router = createRouter({
 // Before each
 router.beforeEach(async function (to, from) {
   // update title based on the route name
-  document.title = `Task Manager 1.1 | ` + formatLabel(to.name?.toString()) ;
+  document.title = `Task Manager 1.1 | ` + formatLabel(to.name?.toString());
 
   log('run before each hook');
 
@@ -45,5 +45,17 @@ router.beforeEach(async function (to, from) {
 
   return true;
 });
+
+
+// after navigation is successfull remove the loader
+router.afterEach((to, from) => {
+  // 
+  const mainloader = document.querySelector('#main-loader');
+  if (mainloader) {
+    mainloader.remove();
+  }
+
+})
+
 
 export default router;
