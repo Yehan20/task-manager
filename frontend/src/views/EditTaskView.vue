@@ -38,17 +38,17 @@ onMounted(async () => {
 <template>
   <v-container>
     <v-row no-gutters>
-      <v-col cols="12" class="bg-white rounded-lg pa-4">
+      <v-col cols="12" class="bg-white rounded-lg pa-2 pa-md-4">
         <v-card max-width="1200" elevation="0">
           <v-progress-circular
             color="deep-purple-darken-4"
-            class="d-flex"
+            class="d-flex justify-center pa-2 text-center"
             v-if="taskStore.status === 'pending'"
             indeterminate
-            :size="69"
+            :size="59"
           />
 
-          <v-sheet class="ma-2 pa-2" v-else-if="taskStore.status === 'success'">
+          <v-sheet class="ma-2 pa-md-2" v-else-if="taskStore.status === 'success'">
             <div class="mb-3">
               <h1>Edit task</h1>
               <p>fill the form to create a task</p>
