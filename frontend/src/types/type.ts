@@ -1,6 +1,5 @@
 export type status = 'idle' | 'pending' | 'success' | 'error';
 
-
 export interface UserInfo {
   id: number;
   name: string;
@@ -16,14 +15,12 @@ export interface NewUser {
   password_confirmation: string;
 }
 
-
 export interface NewTask {
   title: string;
   description: string;
   priority: string;
   deadline: Date;
 }
-
 
 export interface Task {
   id: number;
@@ -36,7 +33,6 @@ export interface Task {
   status: string;
 }
 
-
 export interface PaginationMeta {
   current_page: number;
   from: number;
@@ -47,7 +43,6 @@ export interface PaginationMeta {
   total: number;
   links?: PaginationLink[];
 }
-
 
 interface PaginationLink {
   url: string | null;

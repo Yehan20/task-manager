@@ -1,7 +1,4 @@
-<script lang="ts" setup>
-import AppLayout from '@/layouts/AppLayout.vue';
-import { defineComponent } from 'vue';
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <h1>404 Page Not found</h1>

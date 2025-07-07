@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useField, useForm } from 'vee-validate';
 import { useAuthStore } from '@/stores/auth';
 import { AxiosError } from 'axios';
 import { useRouter } from 'vue-router';
 import { type NewUser } from '@/types/type';
-import BaseInputFeild from './BaseInputFeild.vue';
-import { useDisplay } from 'vuetify';
-
+import BaseInputFeild from '@/components/BaseInputFeild.vue';
 
 // Schema set up
-const { handleSubmit, setErrors, errors } = useForm({
+const { handleSubmit, setErrors } = useForm({
   validationSchema: {
     name(value: string) {
       if (!value) return 'Name is required';
@@ -33,9 +31,6 @@ const { handleSubmit, setErrors, errors } = useForm({
   },
 });
 
-// Display Composable
-const { smAndDown } = useDisplay();
-
 // Router
 const router = useRouter();
 
@@ -44,7 +39,6 @@ const auth = useAuthStore();
 
 // Ref
 const loading = ref(false);
-const snackbar = ref(false);
 const errortext = ref('');
 const show1 = ref(false);
 const show2 = ref(false);
@@ -61,23 +55,18 @@ const submit = handleSubmit(async (values) => {
   const newUser = values as NewUser;
 
   try {
-
     console.log(values);
 
     await auth.registerUser(newUser);
     router.push({ name: 'home' });
   } catch (e) {
-
     loading.value = false;
     if (e instanceof AxiosError) {
-
       if (e.response?.status === 401) errortext.value = e.response.data.message;
 
       if (e.response?.status === 422) setErrors(e.response.data.errors);
-
     } else {
-
-      errortext.value = 'Unexpected Error occured'
+      errortext.value = 'Unexpected Error occured';
     }
   }
 });
@@ -85,31 +74,58 @@ const submit = handleSubmit(async (values) => {
 
 <template>
   <form @submit.prevent="submit">
-
     <!-- Name feild -->
-    <BaseInputFeild data-test="name" v-model="name.value.value" label="Name" :errorMessages="name.errors.value" />
+    <BaseInputFeild
+      data-test="name"
+      v-model="name.value.value"
+      label="Name"
+      :errorMessages="name.errors.value"
+    />
 
     <!-- Email feild   -->
-    <BaseInputFeild data-test="email" v-model="email.value.value" label="Email" :errorMessages="email.errors.value" />
+    <BaseInputFeild
+      data-test="email"
+      v-model="email.value.value"
+      label="Email"
+      :errorMessages="email.errors.value"
+    />
 
     <!-- Password feild -->
-    <BaseInputFeild data-test="password" :append-inner-icon="show1 ? 'mdi-eye-off' : 'mdi-eye'"
-      :type="show1 ? 'text' : 'password'" @click:append-inner="show1 = !show1" v-model="password.value.value"
-      label="Password" :errorMessages="password.errors.value" />
+    <BaseInputFeild
+      data-test="password"
+      :append-inner-icon="show1 ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="show1 ? 'text' : 'password'"
+      @click:append-inner="show1 = !show1"
+      v-model="password.value.value"
+      label="Password"
+      :errorMessages="password.errors.value"
+    />
 
     <!-- Confirmation  feild-->
-    <BaseInputFeild data-test="password_confirmation" :append-inner-icon="show2 ? 'mdi-eye-off' : 'mdi-eye'"
-      :type="show2 ? 'text' : 'password'" @click:append-inner="show2 = !show2"
-      v-model="password_confirmation.value.value" label="Confirm Password"
-      :errorMessages="password_confirmation.errors.value" />
+    <BaseInputFeild
+      data-test="password_confirmation"
+      :append-inner-icon="show2 ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="show2 ? 'text' : 'password'"
+      @click:append-inner="show2 = !show2"
+      v-model="password_confirmation.value.value"
+      label="Confirm Password"
+      :errorMessages="password_confirmation.errors.value"
+    />
 
     <!-- Register Button -->
-    <v-btn data-test="register-btn" :disabled="loading" :loading="loading" type="submit"
-      class="text-none mb-4 rounded-full" color="deep-purple-darken-4" size="large" variant="flat" block>
+    <v-btn
+      data-test="register-btn"
+      :disabled="loading"
+      :loading="loading"
+      type="submit"
+      class="text-none mb-4 rounded-full"
+      color="deep-purple-darken-4"
+      size="large"
+      variant="flat"
+      block
+    >
       Register
     </v-btn>
-
-
   </form>
 </template>
 

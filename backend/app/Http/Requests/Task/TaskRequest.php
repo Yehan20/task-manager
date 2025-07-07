@@ -24,7 +24,7 @@ class TaskRequest extends FormRequest
     {
 
         $rules = [
-            'title' => ['required', 'string', 'max:255'],
+            'title' => ['required', 'string', 'max:50'],
             'description' => ['required', 'string'],
             'deadline' => ['required', 'date', 'after_or_equal:today'],
             'priority' => ['required', 'string', 'in:high,normal,low'],

@@ -1,8 +1,4 @@
-<script lang="ts" setup>
-import { ref } from 'vue';
-
-const alert = ref(true);
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <v-layout class="auth-layout">
@@ -14,29 +10,14 @@ const alert = ref(true);
         </v-col>
 
         <!-- Right: Form Section -->
-        <v-col cols="12" md="6" class="form-section d-flex flex-column justify-center align-center md:px-8">
+        <v-col
+          cols="12"
+          md="6"
+          class="form-section d-flex flex-column justify-center align-center md:px-8"
+        >
           <v-sheet class="pa-6 rounded-lg w-100" max-width="700">
             <slot name="form-section" />
           </v-sheet>
-
-          <!-- <div>
-            <div class="text-xs-center">
-              <v-btn
-                color="primary"
-                @click="alert = !alert"
-              >
-                Toggle ssss
-              </v-btn>
-            </div>
-            <v-alert
-              :value="alert"
-              type="success"
-              transition="scale-transition"
-            >
-              This is a success alert.
-            </v-alert>
-          </div>
-         -->
         </v-col>
       </v-row>
     </v-main>

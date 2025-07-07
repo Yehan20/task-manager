@@ -54,8 +54,6 @@ const items = [
     name: 'notfound',
     component: () => import('../views/NotFoundView.vue'),
   },
-
-
 ];
 
 export default items;

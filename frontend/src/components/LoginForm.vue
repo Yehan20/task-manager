@@ -4,10 +4,9 @@ import { useField, useForm } from 'vee-validate';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 import { AxiosError } from 'axios';
-import BaseInputFeild from './BaseInputFeild.vue';
-import { useDisplay } from 'vuetify';
+import BaseInputFeild from '@/components/BaseInputFeild.vue';
 
-const { handleSubmit, handleReset, setErrors } = useForm({
+const { handleSubmit, setErrors } = useForm({
   validationSchema: {
     password(value: string) {
       if (!value) return 'Password required';
@@ -24,8 +23,6 @@ const { handleSubmit, handleReset, setErrors } = useForm({
   },
 });
 
-
-
 // Router
 const router = useRouter();
 
@@ -35,7 +32,6 @@ const auth = useAuthStore();
 // Refs
 const alert = ref(false);
 const errortext = ref('');
-const timeout = ref(2000);
 const loading = ref(false);
 const show = ref(false);
 
@@ -43,28 +39,25 @@ const show = ref(false);
 const email = useField('email');
 const password = useField('password');
 
-
 // Submit method
 const submit = handleSubmit(async (values) => {
   loading.value = true;
-   alert.value = false;
+  alert.value = false;
   try {
     await auth.loginUser(values.email, values.password);
     if (auth.currentUser) {
       router.replace('/');
     }
   } catch (e) {
-
     if (e instanceof AxiosError) {
       alert.value = true;
       loading.value = false;
 
       if (e.response?.status === 401) {
-    
-        errortext.value = 'Invalid Credintials'
-      }
-      else {
+        errortext.value = 'Invalid Credintials';
+      } else {
         errortext.value = e.response?.data.message ?? 'Server error';
+        setErrors(e.response?.data.errors);
       }
     }
   }
@@ -74,39 +67,53 @@ const submit = handleSubmit(async (values) => {
 </script>
 
 <template>
-
-
-  <v-alert v-model="alert"
-    class="pt-2 pb-2 mb-6" height="50" position="static" closable icon="mdi-alert" :text="errortext"
-    type="error" />
+  <v-alert
+    v-model="alert"
+    class="pt-2 pb-2 mb-6"
+    height="50"
+    position="static"
+    closable
+    icon="mdi-alert"
+    :text="errortext"
+    type="error"
+  />
 
   <form @submit.prevent="submit">
-
-
-
     <!-- Email feild -->
-    <BaseInputFeild   data-test="email" v-model="email.value.value" label="Email" :errorMessages="email.errors.value" />
+    <BaseInputFeild
+      data-test="email"
+      v-model="email.value.value"
+      label="Email"
+      :errorMessages="email.errors.value"
+    />
 
     <!-- Password feild -->
-    <BaseInputFeild 
-    
-     data-test="password"
-     :append-inner-icon="show ? 'mdi-eye-off' : 'mdi-eye'" :type="show ? 'text' : 'password'"
-      @click:append-inner="show = !show" v-model="password.value.value" label="Password"
-      :errorMessages="password.errors.value" />
+    <BaseInputFeild
+      data-test="password"
+      :append-inner-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="show ? 'text' : 'password'"
+      @click:append-inner="show = !show"
+      v-model="password.value.value"
+      label="Password"
+      :errorMessages="password.errors.value"
+    />
 
     <!-- Login button -->
-    <v-btn :disabled="loading" :loading="loading" class="text-none mb-4 rounded-full" color="deep-purple-darken-4"
-      type="submit" size="large" variant="flat"
-       data-test="login-btn"
-      block>
+    <v-btn
+      :disabled="loading"
+      :loading="loading"
+      class="text-none mb-4 rounded-full"
+      color="deep-purple-darken-4"
+      type="submit"
+      size="large"
+      variant="flat"
+      data-test="login-btn"
+      block
+    >
       Login
     </v-btn>
 
-
     <!-- Custom snack bar -->
-
-
 
     <!-- <v-btn :disabled="loading" :loading="loading" class="text-none mb-4 rounded-full" color="green" size="large"
             variant="flat" block @click="loading = !loading">
