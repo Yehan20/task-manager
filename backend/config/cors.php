@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:5173','https://yn-taskmanger.netlify.app'],
+    'allowed_origins' => ['http://localhost:5173','https://yn-taskmanger.netlify.app','http://localhost:4173'],
 
     'allowed_origins_patterns' => [],
 
