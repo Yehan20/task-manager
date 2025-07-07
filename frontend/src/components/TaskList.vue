@@ -40,7 +40,7 @@ const statuses = ref(['pending', 'completed']);
 const snackBarMessage = ref('');
 const snackbarColor = ref('');
 const snackbar = ref(false);
-const timeout = ref(2000);
+const timeout = ref(1500);
 
 //  Confirm dialogs for delete and complete
 const showDeleteConfirmation = (task: Task) => {
@@ -131,7 +131,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <v-card class="elevation-0 mb-4 pa-6 bg-white">
+  <v-card class="elevation-0 mb-4 pa-2 pa-md-6 bg-white">
     <h1>My Tasks</h1>
     <div class="d-md-flex justify-space-between mt-3">
       <div class="d-flex w-md-50">
@@ -369,7 +369,7 @@ onMounted(async () => {
 
     <!-- Base snack bar -->
     <BaseSnackBar
-      location="center center"
+      location="top right"
       v-model="snackbar"
       :timeout="timeout"
       :color="snackbarColor"
