@@ -12,19 +12,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Task extends Model
 {
     //
-    use SoftDeletes, HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable  = [
+    protected $fillable = [
         'title',
         'description',
         'status',
         'user_id',
         'priority',
-        'deadline'
+        'deadline',
     ];
 
     protected function casts(): array
-
     {
         return [
 
@@ -33,11 +32,9 @@ class Task extends Model
         ];
     }
 
-
     /**
      * Scope a query to only select the task belong to user if no user provided selects all tasks
      */
-
     #[Scope]
     protected function byUser(Builder $query, ?User $user): void
     {
