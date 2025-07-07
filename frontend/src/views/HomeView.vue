@@ -1,23 +1,15 @@
 <script setup lang="ts">
 
-import AppLayout from '@/layouts/AppLayout.vue';
-import { useAuthStore } from '@/stores/auth';
-
-const authStore = useAuthStore();
+import TaskList from '@/components/TaskList.vue';
 
 </script>
 
 <template>
-  <AppLayout>
-    <v-container>
-      <h2>User logged {{authStore?.currentUser?.name}}</h2>
-      
-      <v-sheet color="surface-light" height="200" rounded="lg" width="100%">
-        
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam vero odio ab assumenda incidunt totam eveniet
-        laudantium ipsam blanditiis iure delectus, quasi, modi natus molestias nam praesentium sunt animi. Porro?
-      </v-sheet>
-    </v-container>
-  </AppLayout>
-
+  <v-container>
+    <v-row no-gutters>
+      <v-col cols="12" class="pa-2 bg-white  rounded-lg">
+        <TaskList />
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
