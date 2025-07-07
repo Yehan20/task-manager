@@ -4,8 +4,8 @@ import { useField, useForm } from 'vee-validate';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 import { AxiosError } from 'axios';
-import BaseInputFeild from './BaseInputFeild.vue';
-import { useDisplay } from 'vuetify';
+import BaseInputFeild from '@/components/BaseInputFeild.vue';
+
 
 const { handleSubmit, handleReset, setErrors } = useForm({
   validationSchema: {

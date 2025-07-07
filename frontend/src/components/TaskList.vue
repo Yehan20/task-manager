@@ -2,18 +2,18 @@
 import { useTasks } from '@/stores/task';
 import type { Task } from '@/types/type';
 import { getTagColor, log } from '@/utils';
-import { onWatcherCleanup } from 'vue';
 import { computed, onMounted, ref, watch } from 'vue';
-import BaseSnackBar from './BaseSnackBar.vue';
+import BaseSnackBar from '@/components/BaseSnackBar.vue';
 import { AxiosError } from 'axios';
-import TaskCard from './TaskCard.vue';
+import TaskCard from '@/components/TaskCard.vue';
+import type { DataTableHeader } from 'vuetify';
 
 
 const taskStore = useTasks();
 
 const itemsPerPage = ref(5);
 const currentPage = ref(1);
-const headers = ref([
+const headers = ref<DataTableHeader[]>([
   {
     title: 'Title',
     align: 'start',

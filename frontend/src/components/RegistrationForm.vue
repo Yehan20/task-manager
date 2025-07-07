@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/auth';
 import { AxiosError } from 'axios';
 import { useRouter } from 'vue-router';
 import { type NewUser } from '@/types/type';
-import BaseInputFeild from './BaseInputFeild.vue';
+import BaseInputFeild from '@/components/BaseInputFeild.vue';
 import { useDisplay } from 'vuetify';
 
 

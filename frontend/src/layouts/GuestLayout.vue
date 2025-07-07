@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-const alert = ref(true);
+
 </script>
 
 <template>
@@ -19,24 +19,7 @@ const alert = ref(true);
             <slot name="form-section" />
           </v-sheet>
 
-          <!-- <div>
-            <div class="text-xs-center">
-              <v-btn
-                color="primary"
-                @click="alert = !alert"
-              >
-                Toggle ssss
-              </v-btn>
-            </div>
-            <v-alert
-              :value="alert"
-              type="success"
-              transition="scale-transition"
-            >
-              This is a success alert.
-            </v-alert>
-          </div>
-         -->
+   
         </v-col>
       </v-row>
     </v-main>

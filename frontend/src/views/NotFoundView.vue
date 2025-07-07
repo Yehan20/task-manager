@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import AppLayout from '@/layouts/AppLayout.vue';
-import { defineComponent } from 'vue';
+
 </script>
 
 <template>

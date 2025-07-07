@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import LoginForm from '@/components/LoginForm.vue';
 import image from '../assets/images/task.png';
-import RegistrationForm from '@/components/RegistrationForm.vue';
 import GuestLayout from '@/layouts/GuestLayout.vue';
 </script>
 
