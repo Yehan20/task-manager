@@ -4,7 +4,6 @@ import { useField, useForm } from 'vee-validate';
 import { useAuthStore } from '@/stores/auth';
 import { useRouter } from 'vue-router';
 import { AxiosError } from 'axios';
-import Basealert from './Basealert.vue';
 import BaseInputFeild from './BaseInputFeild.vue';
 import { useDisplay } from 'vuetify';
 
@@ -25,8 +24,7 @@ const { handleSubmit, handleReset, setErrors } = useForm({
   },
 });
 
-// Display Composable
-const { smAndDown } = useDisplay();
+
 
 // Router
 const router = useRouter();
@@ -87,16 +85,21 @@ const submit = handleSubmit(async (values) => {
 
 
     <!-- Email feild -->
-    <BaseInputFeild v-model="email.value.value" label="Email" :errorMessages="email.errors.value" />
+    <BaseInputFeild   data-test="email" v-model="email.value.value" label="Email" :errorMessages="email.errors.value" />
 
     <!-- Password feild -->
-    <BaseInputFeild :append-inner-icon="show ? 'mdi-eye-off' : 'mdi-eye'" :type="show ? 'text' : 'password'"
+    <BaseInputFeild 
+    
+     data-test="password"
+     :append-inner-icon="show ? 'mdi-eye-off' : 'mdi-eye'" :type="show ? 'text' : 'password'"
       @click:append-inner="show = !show" v-model="password.value.value" label="Password"
       :errorMessages="password.errors.value" />
 
     <!-- Login button -->
     <v-btn :disabled="loading" :loading="loading" class="text-none mb-4 rounded-full" color="deep-purple-darken-4"
-      type="submit" size="large" variant="flat" block>
+      type="submit" size="large" variant="flat"
+       data-test="login-btn"
+      block>
       Login
     </v-btn>
 

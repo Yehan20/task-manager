@@ -5,10 +5,9 @@ import { useAuthStore } from '@/stores/auth';
 import { AxiosError } from 'axios';
 import { useRouter } from 'vue-router';
 import { type NewUser } from '@/types/type';
-import { log } from '@/utils';
 import BaseInputFeild from './BaseInputFeild.vue';
 import { useDisplay } from 'vuetify';
-import BaseSnackBar from './BaseSnackBar.vue';
+
 
 // Schema set up
 const { handleSubmit, setErrors, errors } = useForm({
@@ -19,7 +18,7 @@ const { handleSubmit, setErrors, errors } = useForm({
     },
     email(value: string) {
       if (!value) return 'Email required';
-      if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true;
+      if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i.test(value)) return true;
       return 'Must be a valid e-mail.';
     },
     password(value: string) {
@@ -73,12 +72,12 @@ const submit = handleSubmit(async (values) => {
     if (e instanceof AxiosError) {
 
       if (e.response?.status === 401) errortext.value = e.response.data.message;
-      
+
       if (e.response?.status === 422) setErrors(e.response.data.errors);
-     
-    }else {
-    
-      errortext.value ='Unexpected Error occured'
+
+    } else {
+
+      errortext.value = 'Unexpected Error occured'
     }
   }
 });
@@ -88,35 +87,36 @@ const submit = handleSubmit(async (values) => {
   <form @submit.prevent="submit">
 
     <!-- Name feild -->
-    <BaseInputFeild v-model="name.value.value" label="Name" :errorMessages="name.errors.value" />
+    <BaseInputFeild data-test="name" v-model="name.value.value" label="Name" :errorMessages="name.errors.value" />
 
     <!-- Email feild   -->
-    <BaseInputFeild v-model="email.value.value" label="Email" :errorMessages="email.errors.value" />
+    <BaseInputFeild data-test="email" v-model="email.value.value" label="Email" :errorMessages="email.errors.value" />
 
     <!-- Password feild -->
-    <BaseInputFeild :append-inner-icon="show1 ? 'mdi-eye-off' : 'mdi-eye'" :type="show1 ? 'text' : 'password'"
-      @click:append-inner="show1 = !show1" v-model="password.value.value" label="Password"
-      :errorMessages="password.errors.value" />
+    <BaseInputFeild data-test="password" :append-inner-icon="show1 ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="show1 ? 'text' : 'password'" @click:append-inner="show1 = !show1" v-model="password.value.value"
+      label="Password" :errorMessages="password.errors.value" />
 
     <!-- Confirmation  feild-->
-    <BaseInputFeild :append-inner-icon="show2 ? 'mdi-eye-off' : 'mdi-eye'" :type="show2 ? 'text' : 'password'"
-      @click:append-inner="show2 = !show2" v-model="password_confirmation.value.value" label="Confirm Password"
+    <BaseInputFeild data-test="password_confirmation" :append-inner-icon="show2 ? 'mdi-eye-off' : 'mdi-eye'"
+      :type="show2 ? 'text' : 'password'" @click:append-inner="show2 = !show2"
+      v-model="password_confirmation.value.value" label="Confirm Password"
       :errorMessages="password_confirmation.errors.value" />
 
     <!-- Register Button -->
-    <v-btn :disabled="loading" :loading="loading" type="submit" class="text-none mb-4 rounded-full"
-      color="deep-purple-darken-4" size="large" variant="flat" block>
+    <v-btn data-test="register-btn" :disabled="loading" :loading="loading" type="submit"
+      class="text-none mb-4 rounded-full" color="deep-purple-darken-4" size="large" variant="flat" block>
       Register
     </v-btn>
 
- 
+
   </form>
 </template>
 
 <style>
-.snack-bar-static  .v-overlay__content {
-   bottom:0;
-   position: relative;
-   width: 100%;
+.snack-bar-static .v-overlay__content {
+  bottom: 0;
+  position: relative;
+  width: 100%;
 }
 </style>
