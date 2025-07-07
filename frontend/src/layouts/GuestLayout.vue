@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-
 const alert = ref(true);
 </script>
 
@@ -15,13 +14,11 @@ const alert = ref(true);
         </v-col>
 
         <!-- Right: Form Section -->
-        <v-col cols="12" md="6" class="form-section d-flex flex-column justify-center align-center  md:px-8">
-          <v-sheet  class="pa-6 rounded-lg w-100" max-width="700">
+        <v-col cols="12" md="6" class="form-section d-flex flex-column justify-center align-center md:px-8">
+          <v-sheet class="pa-6 rounded-lg w-100" max-width="700">
             <slot name="form-section" />
           </v-sheet>
 
-
-     
           <!-- <div>
             <div class="text-xs-center">
               <v-btn
@@ -40,7 +37,6 @@ const alert = ref(true);
             </v-alert>
           </div>
          -->
-
         </v-col>
       </v-row>
     </v-main>
@@ -52,9 +48,18 @@ const alert = ref(true);
   min-height: 100vh;
 }
 
-
-
 .form-section {
   background-color: #f9f9f9;
+}
+
+.v-messages__message {
+  font-size: 0.75rem !important;
+  font-weight: 500;
+  color: red !important;
+}
+
+.v-field--error .v-field__outline {
+  border-width: 2px !important;
+  border-color: red !important;
 }
 </style>

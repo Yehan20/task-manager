@@ -1,95 +1,77 @@
 <template>
-    <v-card>
-        <v-layout>
-            <v-app-bar color="primary">
-                <v-app-bar-nav-icon v-if="mdAndDown" variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
-            </v-app-bar>
-
-            <!-- Mobile Drawer -->
-            <v-navigation-drawer v-if="mdAndDown" class="bg-deep-purple" theme="dark" v-model="drawer"
-                :location="$vuetify.display.mobile ? 'left' : undefined" temporary>
-                <v-list :items="items" color="transparent" />
+  <v-card>
+    <v-layout>
 
 
-                <template v-slot:append>
-                    <div class="pa-2">
-                        <v-btn block>
-                            Logout
-                        </v-btn>
-                    </div>
-                </template>
-            </v-navigation-drawer>
+      <TheSidebar v-model="drawer" />
+
+      <!-- Mobile Drawer -->
+
+      <v-app-bar elevation="0" color="deep-purple-darken-4" title="Task Manager 1.2" id="">
+
+        <v-spacer />
+
+        <v-btn class="me-2" @click="handleLogout" :disabled="loading" :loading="loading">
+          <v-icon>mdi-logout</v-icon>
+          Logout
+        </v-btn>
+
+        <v-app-bar-nav-icon v-if="mdAndDown" variant="text" @click.stop="drawer = !drawer" />
+
+      </v-app-bar>
 
 
-            <!-- Desktop Drawer -->
-            <v-navigation-drawer v-if="!mdAndDown" class="bg-deep-purple" theme="dark" permanant>
-                <v-list :items="items" color="transparent" />
 
-                <template v-slot:append>
-                    <div class="pa-2">
-                        <v-btn @click="handleLogout"  :disabled="loading" :loading="loading"   block>
-                            Logout
-                        </v-btn>
-<!-- 
-                        <v-btn :disabled="loading" :loading="loading" class="text-none mb-4 rounded-full"
-                            color="indigo-darken-3" type="submit" size="large" variant="flat" block>
-                            Login
-                        </v-btn> -->
-                    </div>
-
-
-                </template>
-            </v-navigation-drawer>
-
-            <v-main style="min-height:100vh;">
-                <slot />
-            </v-main>
-        </v-layout>
-    </v-card>
+      <v-main class="" style="min-height: 100vh; background: #f4f7fd">
+        <router-view v-slot="{ Component }">
+          <v-fade-transition hide-on-leave>
+            <component :is="Component" />
+          </v-fade-transition>
+        </router-view>
+      </v-main>
+    </v-layout>
+  </v-card>
 </template>
 <script setup lang="ts">
+import TheSidebar from '@/components/TheSidebar.vue';
 
 import { useAuthStore } from '@/stores/auth';
-import { ref, watch } from 'vue';
+import { shallowRef } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { useDisplay } from 'vuetify';
 
 const auth = useAuthStore();
-const { mdAndDown } = useDisplay()
-const router = useRouter();
+const { mdAndDown } = useDisplay();
 
-const group = ref(null)
+
+const group = ref(null);
 const drawer = ref(false);
 
-const loading = ref(false)
+const loading = ref(false);
 
 const items = [
-    {
-        title: 'Dashboard',
-        value: 'foo',
-    },
-    {
-        title: 'Create Task',
-        value: 'bar',
-    },
-]
+  {
+    title: 'Dashboard',
+    value: '/',
+  },
+  {
+    title: 'Create Task',
+    value: '/task/create',
+  },
+];
 
 const handleLogout = async () => {
-    loading.value = true;
-    try {
-        await auth.logout();
-        loading.value = false;
-     
-    } catch (e) {
-        loading.value = false;
-    }
+  loading.value = true;
+  try {
+    await auth.logout();
 
-}
-
+  } catch (e) {
+    loading.value = false;
+  }
+};
 
 watch(group, () => {
-    drawer.value = false
-})
-
+  drawer.value = false;
+});
 </script>
