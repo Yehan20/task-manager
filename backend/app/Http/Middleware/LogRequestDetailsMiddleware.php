@@ -17,8 +17,8 @@ class LogRequestDetailsMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-       // Logs Incomming request details for debugging
-    
+        // Logs Incomming request details for debugging
+
         Log::info('Incoming Request', [
             'method' => $request->method(),
             'url' => $request->fullUrl(),
