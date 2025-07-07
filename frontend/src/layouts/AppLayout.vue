@@ -5,6 +5,8 @@ import { useAuthStore } from '@/stores/auth';
 import { ref, watch } from 'vue';
 import { useDisplay } from 'vuetify';
 
+
+
 const auth = useAuthStore();
 const { mdAndDown } = useDisplay();
 
@@ -34,12 +36,11 @@ watch(group, () => {
       <!-- Side bar -->
       <TheSidebar v-model="drawer" />
 
-      <v-app-bar
-        elevation="0"
-        color="deep-purple-darken-4"
-        class="text-body"
-        title=""
-      >
+      <v-app-bar elevation="0" color="deep-purple-darken-4" class="text-body" style="font-size: 0.9rem;"
+        title="">
+
+
+
         <v-spacer />
 
         <v-btn class="me-2" @click="handleLogout" :disabled="loading" :loading="loading">
