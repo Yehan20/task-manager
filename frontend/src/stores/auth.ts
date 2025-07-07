@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('user', {
         if (response.data) {
           localStorage.setItem('token', response.data.authorization.token);
         }
-        this.currentUser = response.data;
+        this.currentUser = response.data.data;
       } catch (error) {
         log(error);
         throw error;
