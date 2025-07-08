@@ -151,19 +151,19 @@ git remote add origin https://github.com/<your-github-username>/<your-repo-name>
    The frontend will be available at `http://localhost:5173`.
    If you change the development url make sure to update the cors.php file in laravel as other wise it wont allow
 
-6. While it's possible to manually set the API URL directly in the code, it's **highly recommended** to use environment variables instead for flexibility and cleaner configuration.
+6. While it's possible to manually set the API URL directly in the code, it's **highly recommended** to    use environment variables instead for flexibility and cleaner configuration.
 
-  **File:** `frontend/src/axios/axios.js`
+   **File:** `frontend/src/axios/axios.ts`
 
-   ```js
-   const axiosInstance = axios.create({
-   baseURL: 'http://yourendpoint.com', 
-   });
-   ```
+      ```js
+      const axiosInstance = axios.create({
+      baseURL: 'http://yourendpoint.com', 
+      });
+      ```
 
-   ```bash
-   npm run dev
-   ```
+      ```bash
+      npm run dev
+      ```
 
    The frontend will be available at `http://localhost:5173` by default.
 
@@ -215,14 +215,14 @@ npm run test:e2e:dev
 This project is deployed using the following free services:
 
 - **Frontend** is hosted on [Netlify](https://www.netlify.com/)
-- **Backend API** is hosted on [Sevella](https://sevella.com/) )
+- **Backend API** is hosted on [Sevella](https://sevalla.com/) 
 
 ###  Deployment Resources
 
 You can learn more about deployment from the official documentation:
 
 - [Netlify Docs (Frontend Hosting)](https://docs.netlify.com/)
-- [Sevella Docs (PHP & Laravel Hosting)](https://docs.sevella.com/) 
+- [Sevella Docs (PHP & Laravel Hosting)](https://docs.sevalla.com/) 
 
 >  **Important:** Ensure that CORS is properly configured in your Laravel backend (`config/cors.php`) to allow requests from your deployed Netlify domain. repo has already cors file.
 
