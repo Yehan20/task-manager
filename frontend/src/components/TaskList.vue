@@ -268,7 +268,7 @@ onMounted(async () => {
           <!-- Grid veiw -->
           <v-tabs-window-item value="two">
             <v-row>
-              <v-col cols="6">
+              <v-col cols="12" md="6">
                 <TaskCard
                   v-for="task in taskStore.pendingTasks"
                   :loading="loading"
@@ -279,7 +279,7 @@ onMounted(async () => {
                 />
               </v-col>
 
-              <v-col cols="6">
+              <v-col cols="12" md="6">
                 <TaskCard
                   v-for="task in taskStore.completedTasks"
                   :loading="loading"
