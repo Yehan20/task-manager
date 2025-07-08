@@ -43,7 +43,7 @@ watch(group, () => {
 
         <v-spacer />
 
-        <v-btn class="me-2" @click="handleLogout" :disabled="loading" :loading="loading">
+        <v-btn data-test="logout-btn" class="me-2" @click="handleLogout" :disabled="loading" :loading="loading">
           <v-icon>mdi-logout</v-icon>
           Logout
         </v-btn>
